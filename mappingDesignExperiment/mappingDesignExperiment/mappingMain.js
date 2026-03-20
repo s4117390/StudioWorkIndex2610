@@ -1,4 +1,4 @@
-//// FIND ELEMENTS
+//find our elements
 const stageContainer = document.getElementById("stage-container");
 const circleButton = document.getElementById("circle-button");
 const changeRed = document.getElementById("change-red");
@@ -8,7 +8,7 @@ const changeGreenyellow = document.getElementById("change-greenyellow");
 //// INIT VARIABLES
 let stageWidth = stageContainer.offsetWidth;
 let stageHeight = stageContainer.scrollHeight;
-
+let circleColour = "#FF00C1";
 //// KONVA SETUP
 
 // first create stage
@@ -28,7 +28,6 @@ stage.add(baseLayer);
 
 //// DRAWING FUNCTION
 
-let circleColour = "#FF00C1";
 
 function drawCircle(){
     // create circle
@@ -53,7 +52,7 @@ circleButton.addEventListener("click", drawCircle);
 function changeColourRadio(clickEvent){
     //find the value of whichever of the radio buttons was clicked
     let newColour = clickEvent.target.value
-    //set the new circle colour to theat colour
+    //set the new circle colour to that colour
     circleColour = newColour
 }
 

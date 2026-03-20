@@ -22,6 +22,9 @@
     border-radius: 0 0 0.25rem 0.25rem;
     flex: 1;
     cursor: pointer;
+
+    /* adds smooth animation to color and movement for better interaction */
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 .keyboardContainer > .octaveContainer:first-of-type > .whiteKeyContainer > .whiteKey:first-of-type {
     border: var(--border);
@@ -46,7 +49,9 @@
     flex: 1;
     cursor: pointer;
     pointer-events: all;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
+
 .blackKey:nth-of-type(1) {
     border: var(--border);
     width: calc(2rem + 4px);

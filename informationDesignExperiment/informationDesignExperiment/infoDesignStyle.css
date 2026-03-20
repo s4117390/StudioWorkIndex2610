@@ -2,21 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 /*define custom variables*/
-:root{
-    /* Late Night Bath Palette by sukinapan https://lospec.com/palette-list/late-night-bath */
-    --col01: #282d3c;
-    --col02: #f0f6f0;
-    --col03: #ffc4b8;
-    --col04: #5b5d70;
-    --col05: #74838c;
-    --col06: #f69197;
+:root {
+    --col01: #2f3e34;  /* background */
+    --col02: #1f2a24;  /* text */
+    --col03: #f8f6f2;  /* soft green */
+    --col04: #8fa99a;  /* border */
+    --col05: #6f8f7a;  /* main green */
+    --col06: #4f6d5d;  /* active */
+    --col07: #2c3e34;  /* strong text */
     --border: solid 2px var(--col04);
 }
 
 body {
     font-family: "Work Sans", serif;
-    background-color: var(--col01);
-    color: var(--col02);
+    background-color: var(--col04);
+    color: var(--col03);
     display: flex;
     flex-direction: column;
     /*align-items: center;*/
