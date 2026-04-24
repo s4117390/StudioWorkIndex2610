@@ -29,34 +29,121 @@
 
         <h3>Technology</h3>
         <p>One of the biggest challenges was making a 2D web page feel like a vast, desolate landscape. I decided to use a Hybrid Rendering approach to solve this.</p>
-        <ul>
-            <li><strong>Parallax via SVG Layers:</strong> Instead of drawing everything on a single Canvas, I separated the background into five static SVG layers (l-sky to l-fg). By applying different coefficients in the <code>parallaxLoop()</code>—where the foreground moves significantly faster than the sky—I created a "multi-plane" effect that mimics 3D depth.</li>
-            <li><strong>Canvas Overlay:</strong> I placed a transparent HTML5 Canvas over these layers. This allows the generative life forms to appear as if they are growing directly within the physical space of the ruins. The hardest part was ensuring the <code>drawWarmth()</code> function correctly interpolated colors.</li>
-        </ul>
+        <p>
+            Instead of drawing everything on a single Canvas, I separated the background into five static SVG layers (l-sky to l-fg). By applying different coefficients in the parallaxLoop()—where the foreground moves significantly faster than the sky—I created a "multi-plane" effect that mimics 3D depth.
+        </p>
+
+        <p>
+            I placed a transparent HTML5 Canvas over these layers. This allows the generative life forms to appear as if they are growing directly within the physical space of the ruins. The hardest part was ensuring the drawWarmth() function correctly interpolated colors, so the "healing" effect felt like it was soaking into the background rather than just sitting on top of it.
+        </p>
 
         <h3>Gesture Detection</h3>
-        <p>The most difficult logical hurdle was making the interaction feel "organic," moving beyond a simple click-to-create system to ensure the user's movement truly mattered. To achieve this, I built the Classifier (<code>detectBehaviour</code>), a logic engine that monitors duration, totalMove, and avgSpeed. By tracking the mouse path in a trail array and sampling speed via the mousemove listener, the code distinguishes between a quick "Sweep" and a patient "Dwell." For instance, holding the mouse still for over 1.2 seconds triggers the dwell behavior, spawning a more significant life form; mapping these physical properties to the params object in <code>createGrowth()</code> was a breakthrough in turning raw data into artistic intent.</p>
+        <p>The most difficult logical hurdle was making the interaction feel "organic," moving beyond a simple click-to-create system to ensure the user's movement truly mattered. To achieve this, I built the Classifier (detectBehaviour), a logic engine that monitors duration, totalMove, and avgSpeed. By tracking the mouse path in a trail array and sampling speed via the mousemove listener, the code distinguishes between a quick "Sweep" and a patient "Dwell." For instance, holding the mouse still for over 1.2 seconds triggers the dwell behavior, spawning a more significant life form; mapping these physical properties to the params object in createGrowth() was a breakthrough in turning raw data into artistic intent. Drawing these elements required progress-based logic, where every item in the growths array uses a prog multiplier based on its age and maxAge to grow dynamically rather than appearing instantly. To sustain the scene's vitality, I implemented a "Wobble" effect using Math.sin(t * 0.001 + item.wobble), creating a subtle oscillation that mimics grass swaying in a breeze. This spatial experience is further enhanced by a Multi-plane Parallax Engine, which maps mouse coordinates to different offset scales for each SVG layer to create depth within the 2D canvas. Finally, the transition from "War" to "Peace" is managed through Dynamic Atmosphere Interpolation. Using Lerp logic within the drawWarmth function, the sky and ground gradients are tied to a warmth variable that "chases" a target based on growthCount. As interaction increases, the code recalculates RGBA values every frame, resulting in a smooth, almost unnoticeable shift from cold purples to life-giving greens and ambers.</p>
 
-        <h3>Scene & Visuals</h3>
-        <p>The visual style is inspired by Moebius’s "ligne claire" aesthetics. To bridge the gap between creative intuition and technical precision, I utilized a sketch-to-vector workflow. I manually sketched the landscape on paper to define the ruin structures, then utilized an AI-assisted vectorization workflow (Gemini) to translate descriptions into precise SVG path data. This allows for scalable code that remains sharp at any resolution. I performed manual refinement on fill and opacity values in <code>scene.js</code> to ensure a somber palette of deep purples (#120A1E).</p>
+        <h3>Scene</h3>
+        <p>The visual style of the landscape is inspired by Moebius’s "ligne claire" aesthetics. To bridge the gap between creative intuition and technical precision, I utilized a sketch-to-vector workflow:</p>
 
-        <h3>Audio Engine: Technical Implementation</h3>
-        <p>This project utilizes the HTML5 Web Audio API to achieve fully synthesized audio without external files. All sound effects are generated in real-time by connecting oscillators or noise buffers to gain nodes and filters. Wind and rain sounds are sculpted from "White Noise" using a <code>BiquadFilter</code>. For the wind chimes, I used timing parameters to control volume change curves (envelopes), mimicking natural physical decay via exponential curves.</p>
+        <div class="scene-gallery">
 
-        <h3>Technical References (Source Code)</h3>
+            <div class="scene-visual-inline">
+                <div class="visual-depth-bg blue-tint"></div>
+                <div class="visual-frame">
+                    <div class="frame-header">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <img src="assets/1.png" alt="Moebius Reference" class="scene-img">
+                </div>
+            </div>
+
+            <div class="scene-visual-inline">
+                <div class="visual-depth-bg purple-tint"></div>
+                <div class="visual-frame">
+                    <div class="frame-header">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <img src="assets/2.png" alt="Initial Sketch" class="scene-img">
+                </div>
+            </div>
+
+        </div>
+
+        <p>Original Concept: I manually sketched the landscape on paper to define the ruin structures, horizon lines, and the spatial relationship between the five parallax layers.</p>
+
+        <div class="scene-gallery">
+            <div class="scene-visual-inline">
+                <div class="visual-depth-bg blue-tint"></div>
+                <div class="visual-frame">
+                    <div class="frame-header">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <img src="assets/3.png" alt="Moebius Reference" class="scene-img">
+                </div>
+            </div>
+
+            <div class="scene-visual-inline">
+                <div class="visual-depth-bg purple-tint"></div>
+                <div class="visual-frame">
+                    <div class="frame-header">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <img src="assets/4.png" alt="Initial Sketch" class="scene-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="scene-description">
+            <p>
+                To bridge the gap between creative intuition and technical precision, I utilized an AI-assisted vectorization workflow, using Gemini to translate my hand-drawn sketches and stylistic descriptions into precise SVG path data. This allowed for the conversion of organic, hand-drawn shapes into clean, scalable code that remains sharp at any resolution. Once the base SVG code was generated, I performed manual refinement on the fill and opacity values within scene.js to ensure a consistent, somber palette of deep purples (#120A1E), reinforcing the desolate atmosphere. To support the parallax engine in main.js, I organized these visuals into a modular SCENE object, a decoupling of data and logic that offers several technical advantages. The environment is divided into five independent layers—ranging from the distant sky to the foreground—each acting as a separate vector container for precise movement control. By embedding these SVG strings directly into the JavaScript rather than using external files, the project avoids additional image requests, resulting in near-instant load times and optimized rendering performance.
+            </p>
+
+        </div>
+
+        <h3>Audio</h3>
+        <p>In this project, I did not use external audio files. This was partly because static audio cannot respond dynamically to user gestures (like dragging speed), and partly because I wanted to experiment with what kind of sounds could be achieved through AI collaboration.</p>
+        <p>
+            The project utilizes the HTML5 Web Audio API to achieve fully synthesized audio. All sound effects are generated in real-time by connecting sound sources, like oscillators or noise buffers, to gain nodes and filters before reaching the final output. This node-based connectivity ensures that the audio remains flexible and reactive. For instance, wind and rain sounds are sculpted from "White Noise" using a BiquadFilter to remove unwanted frequencies. In the rain effect, the code layers three different frequency bands and combines them with randomly generated short tones to simulate individual droplets, which prevents the sound from feeling mechanically repetitive.
+        </p>
+
+        <p>
+            To make the synthesized sounds feel like real-world objects, I used timing parameters to control the volume change curves, often called envelopes. For the wind chimes, the sound hits peak volume the moment it is triggered and then fades out slowly via an exponential curve, mimicking natural physical decay. This same logic applies to the transition of the world’s state; The intro sequence features a low-frequency rumble to simulate a wartime atmosphere, which I programmed to smoothly reduce to zero over 8 seconds using the setTargetAtTime method. This creates a seamless shift from the "war" background noise to the peaceful soundscape created by the user's input.
+        </p>
+
+        <div>
+        <h2 id="references">References</h2>
+        <p>The technical foundation of <em>Echoes of Peace</em> relies on several core web technologies and programming patterns, directly implemented within the <code>main.js</code> and <code>audio.js</code> files:</p>
+
         <ul>
-            <li><strong>Generative Graphics (Canvas API):</strong> <code>drawItem()</code> (Line 268) and <code>drawFlower()</code> (Line 285).</li>
-            <li><strong>Parallax:</strong> <code>parallaxLoop()</code> (Line 108) and <code>loop()</code> (Line 424).</li>
-            <li><strong>Input Mapping:</strong> <code>createGrowth()</code> (Line 218).</li>
-            <li><strong>Audio Synthesis:</strong> <code>noiseNode()</code> (Line 42) and <code>playChime()</code> (Line 71) in <code>audio.js</code>.</li>
+            <li>
+                <strong>Generative Graphics (Canvas API):</strong> All procedural elements, including flora and fauna, are rendered via the Canvas API.
+                <br><small>Reference: <code>drawItem()</code> (Line 268) and <code>drawFlower()</code> (Line 285).</small>
+            </li>
+            <li>
+                <strong>Parallax Engine:</strong> The multi-plane depth effect and frame-by-frame growth are managed by separate loops to optimize performance.
+                <br><small>Reference: <code>parallaxLoop()</code> (Line 108) and <code>loop()</code> (Line 424).</small>
+            </li>
+            <li>
+                <strong>Input Mapping:</strong> A centralized logic engine maps user gestures to specific object parameters.
+                <br><small>Reference: <code>createGrowth()</code> (Line 218), processing behaviour and form instantiation.</small>
+            </li>
+            <li>
+                <strong>System State Management:</strong> Global flags manage the transition from the narrative intro to the interactive sandbox.
+                <br><small>Reference: <code>warIntroActive</code> (Line 118) and <code>enterBtn</code> listener (Line 448).</small>
+            </li>
+            <li>
+                <strong>Real-time Audio Synthesis:</strong> Environmental and musical feedback are synthesized algorithmically without external samples.
+                <br><small>Reference: <code>noiseNode()</code> (Line 42) and <code>playChime()</code> (Line 71).</small>
+            </li>
         </ul>
 
-        <h3>External Documentation</h3>
+        <h3>External Documentation & Inspiration</h3>
         <p>
-            MDN Web Docs (2023) Canvas API. <br>
-            MDN Web Docs (2023) Web Audio API. <br>
-            Google Gemini (2026) Vibe Coding Assistance.
+            • <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank">MDN Web Docs: Canvas API</a><br>
+            • <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">MDN Web Docs: Web Audio API</a><br>
+            • <a href="https://au.pinterest.com/pin/843017623994658546/" target="_blank">Visual Reference: Aesthetic Study 01</a><br>
+            • <a href="https://i.pinimg.com/736x/85/54/d1/8554d1302a12ece94d1c9276174218f6.jpg" target="_blank">Visual Reference: Aesthetic Study 02</a><br>
+            • <strong>Google Gemini (2026):</strong> Vibe Coding Assistance - Algorithmic Sound Synthesis and Procedural Logic.
         </p>
+        </div>
     </section>
 </main>
 </body>
