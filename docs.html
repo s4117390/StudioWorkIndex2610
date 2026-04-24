@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Echoes of Peace</title>
+    <link rel="stylesheet" href="style.css"> <style>
+    /* 针对文档页面的微调 */
+    .doc-content { line-height: 1.8; }
+    .doc-content h3 { color: #ff8fb1; margin-top: 2rem; border-bottom: 1px solid #2b2b2b; padding-bottom: 0.5rem; }
+    .doc-content ul { padding-left: 20px; color: #dddddd; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #ff8fb1; text-decoration: none; font-weight: bold; }
+    .back-link:hover { text-decoration: underline; }
+    code { background: #000; color: #ff8fb1; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+</style>
+</head>
+<body>
+<main class="page">
+    <a href="index.html" class="back-link">← Back</a>
+
+    <header class="hero">
+        <h1>Project Documentation</h1>
+        <p class="subtitle">Echoes of Peace: Technical Implementation & Design Philosophy</p>
+    </header>
+
+    <section class="card doc-content">
+        <h2>Concept</h2>
+        <p>The core of this project explores the causality between user actions and systemic change, moving away from direct representations of war to focus on the experiential process of healing. This philosophy evolved from an initial concept featuring three linear scenes: an innocent field unintentionally destroyed by movement, a catching game for rebuilding, and a post-war meditation. While this earlier version had strong narrative expression, critical feedback suggested it deprived users of agency, as the predetermined path and fixed outcomes limited the exploratory potential of the interactive medium. Consequently, I pivoted to a sandbox model—a free-form ruin where the user is no longer forced through a sequence but is given the autonomy to decide when and how to restore the landscape. By utilizing the Web Audio API and HTML5 Canvas, the project establishes a sensory feedback loop where gestures and movements directly drive the transition from a cold, silent ruin to a vibrant environment. The value of this design lies in its indirectness: meaning is not delivered as a fixed message, but emerges through the user’s active participation in the system’s evolution from "war" to "peace," fostering a more personal and reflective experience.</p>
+
+        <h3>Technology</h3>
+        <p>One of the biggest challenges was making a 2D web page feel like a vast, desolate landscape. I decided to use a Hybrid Rendering approach to solve this.</p>
+        <ul>
+            <li><strong>Parallax via SVG Layers:</strong> Instead of drawing everything on a single Canvas, I separated the background into five static SVG layers (l-sky to l-fg). By applying different coefficients in the <code>parallaxLoop()</code>—where the foreground moves significantly faster than the sky—I created a "multi-plane" effect that mimics 3D depth.</li>
+            <li><strong>Canvas Overlay:</strong> I placed a transparent HTML5 Canvas over these layers. This allows the generative life forms to appear as if they are growing directly within the physical space of the ruins. The hardest part was ensuring the <code>drawWarmth()</code> function correctly interpolated colors.</li>
+        </ul>
+
+        <h3>Gesture Detection</h3>
+        <p>The most difficult logical hurdle was making the interaction feel "organic," moving beyond a simple click-to-create system to ensure the user's movement truly mattered. To achieve this, I built the Classifier (<code>detectBehaviour</code>), a logic engine that monitors duration, totalMove, and avgSpeed. By tracking the mouse path in a trail array and sampling speed via the mousemove listener, the code distinguishes between a quick "Sweep" and a patient "Dwell." For instance, holding the mouse still for over 1.2 seconds triggers the dwell behavior, spawning a more significant life form; mapping these physical properties to the params object in <code>createGrowth()</code> was a breakthrough in turning raw data into artistic intent.</p>
+
+        <h3>Scene & Visuals</h3>
+        <p>The visual style is inspired by Moebius’s "ligne claire" aesthetics. To bridge the gap between creative intuition and technical precision, I utilized a sketch-to-vector workflow. I manually sketched the landscape on paper to define the ruin structures, then utilized an AI-assisted vectorization workflow (Gemini) to translate descriptions into precise SVG path data. This allows for scalable code that remains sharp at any resolution. I performed manual refinement on fill and opacity values in <code>scene.js</code> to ensure a somber palette of deep purples (#120A1E).</p>
+
+        <h3>Audio Engine: Technical Implementation</h3>
+        <p>This project utilizes the HTML5 Web Audio API to achieve fully synthesized audio without external files. All sound effects are generated in real-time by connecting oscillators or noise buffers to gain nodes and filters. Wind and rain sounds are sculpted from "White Noise" using a <code>BiquadFilter</code>. For the wind chimes, I used timing parameters to control volume change curves (envelopes), mimicking natural physical decay via exponential curves.</p>
+
+        <h3>Technical References (Source Code)</h3>
+        <ul>
+            <li><strong>Generative Graphics (Canvas API):</strong> <code>drawItem()</code> (Line 268) and <code>drawFlower()</code> (Line 285).</li>
+            <li><strong>Parallax:</strong> <code>parallaxLoop()</code> (Line 108) and <code>loop()</code> (Line 424).</li>
+            <li><strong>Input Mapping:</strong> <code>createGrowth()</code> (Line 218).</li>
+            <li><strong>Audio Synthesis:</strong> <code>noiseNode()</code> (Line 42) and <code>playChime()</code> (Line 71) in <code>audio.js</code>.</li>
+        </ul>
+
+        <h3>External Documentation</h3>
+        <p>
+            MDN Web Docs (2023) Canvas API. <br>
+            MDN Web Docs (2023) Web Audio API. <br>
+            Google Gemini (2026) Vibe Coding Assistance.
+        </p>
+    </section>
+</main>
+</body>
+</html>

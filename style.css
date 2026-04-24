@@ -117,3 +117,156 @@ h3 {
     margin-bottom: 0.8rem;
     color: #f0f0f0;
 }
+
+/* Project Journey 特殊样式 */
+.journey-card {
+    border-left: 4px solid #ff8fb1; /* 左侧粗边框增加区分度 */
+}
+
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.journey-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #0f0f0f;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.journey-item:hover {
+    transform: translateY(-3px);
+    border-color: #ff8fb1;
+    background: #1a1a1a;
+}
+
+.journey-item .icon {
+    font-size: 1.8rem;
+    filter: grayscale(0.5);
+    transition: filter 0.3s ease;
+}
+
+.journey-item:hover .icon {
+    filter: grayscale(0);
+}
+
+.journey-item .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.journey-item .title {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #ff8fb1;
+    margin-bottom: 4px;
+}
+
+.journey-item .desc {
+    font-size: 0.85rem;
+    color: #bdbdbd;
+}
+
+/* 适配移动端 */
+@media (max-width: 600px) {
+    .journey-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* feedback page */
+
+/* Main container for the reflection content */
+.feedback-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
+
+/* Base card styling for each feedback section */
+.feedback-card {
+    position: relative;
+    padding: 40px 30px !important;
+    margin-bottom: 30px;
+    background: #161616;
+    border: 1px solid #2b2b2b;
+    border-radius: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Subtle hover effect for interactivity */
+.feedback-card:hover {
+    transform: translateY(-5px);
+    border-color: #444;
+}
+
+/* Highlight the current version with the theme color */
+.current-version {
+    border-left: 4px solid #ff8fb1;
+    background: linear-gradient(145deg, #161616 0%, #1c1c1c 100%);
+}
+
+.current-version:hover {
+    border-color: #ff8fb1;
+}
+
+/* Version tags/labels (e.g., Initial Version vs Current Version) */
+.version-tag {
+    display: inline-block;
+    background: #2b2b2b;
+    color: #ff8fb1;
+    font-family: 'Courier New', Courier, monospace; /* Monospace for a technical look */
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Stronger contrast for the current version tag */
+.current-version .version-tag {
+    background: #ff8fb1;
+    color: #111;
+    font-weight: bold;
+}
+
+/* Reflection body text optimization for readability */
+.reflection-text {
+    color: #cccccc;
+    font-size: 1.05rem;
+    line-height: 1.8; /* Increased line height for academic readability */
+    margin: 0;
+    text-align: justify; /* Clean edges for long paragraphs */
+}
+
+/* Visual divider between the two testing phases */
+.divider {
+    text-align: center;
+    color: #333;
+    margin: 50px 0;
+    font-size: 1.5rem;
+    letter-spacing: 15px;
+    opacity: 0.5;
+}
+
+/* responsive design */
+@media (max-width: 768px) {
+    .feedback-card {
+        padding: 30px 20px !important;
+    }
+
+    .reflection-text {
+        font-size: 0.95rem;
+        text-align: left; /* Better for mobile devices */
+    }
+}

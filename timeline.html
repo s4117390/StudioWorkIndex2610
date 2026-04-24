@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline - Echoes of Peace</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .timeline-container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
+    .back-btn { display: inline-block; margin-bottom: 30px; color: #ff8fb1; text-decoration: none; font-weight: bold; }
+
+    .timeline { position: relative; border-left: 2px solid #2b2b2b; margin-left: 20px; padding-left: 40px; }
+    .timeline-item { position: relative; margin-bottom: 25px; }
+
+    /* Timeline Dot */
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -51px; top: 12px;
+      width: 18px; height: 18px;
+      background: #111;
+      border: 2px solid #ff8fb1;
+      border-radius: 50%;
+      transition: 0.3s ease;
+    }
+
+    .timeline-card {
+      background: #161616;
+      border: 1px solid #2b2b2b;
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all 0.4s ease;
+      max-height: 55px; /* Collapsed height */
+      overflow: hidden;
+    }
+
+    .timeline-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #ff8fb1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .week-tag { font-size: 0.75rem; color: #666; font-family: monospace; }
+
+    .details {
+      margin-top: 15px;
+      color: #dddddd;
+      opacity: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Hover Interaction */
+    .timeline-item:hover .timeline-card {
+      max-height: 250px;
+      border-color: #ff8fb1;
+      background: #1c1c1c;
+    }
+
+    .timeline-item:hover .details { opacity: 1; }
+    .timeline-item:hover::before { background: #ff8fb1; transform: scale(1.2); }
+  </style>
+</head>
+<body>
+<main class="timeline-container">
+  <a href="index.html" class="back-btn">← Back</a>
+
+  <header class="hero">
+    <h1>Project Timeline</h1>
+    <p class="subtitle">Weekly progress and milestones.</p>
+  </header>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 1</h3>
+        <p class="details">Studied fundamental programming logic. Focused on system control flow. Built a foundation for future interactions.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 2</h3>
+        <p class="details">Explored creative web design methods. Researched innovative interactive cases. Investigated tech-art combinations.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 3</h3>
+        <p class="details">Finalized the project theme. Submitted the formal proposal. Defined core goals and technical paths.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 4</h3>
+        <p class="details">Linked the theme with interactive forms. Brainstormed emotional tech solutions. Planned user engagement loops.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 5</h3>
+        <p class="details">Drafted visual style sketches. Learned 2D Canvas API. Started coding core growth systems.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 6</h3>
+        <p class="details">Learned advanced interaction scripts. Performed heavy development work. Refined system feedback loops.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 7</h3>
+        <p class="details">Updated web interaction modes. Optimized user navigation. Debugged and polished the source code.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <h3>Week 8</h3>
+        <p class="details">Conducted user feedback surveys. Analyzed test results. Finalized the code and submitted Assignment 2.</p>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
